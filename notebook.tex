@@ -1,0 +1,1628 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{brazilian\_ximena}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{ds4a-colombia-4.0}{%
+\section{DS4A / COLOMBIA 4.0}\label{ds4a-colombia-4.0}}
+
+\hypertarget{tema-comportamiento-del-consumidor-en-el-comercio-electruxf3nico}{%
+\section{Tema: Comportamiento del consumidor en el comercio
+electrónico}\label{tema-comportamiento-del-consumidor-en-el-comercio-electruxf3nico}}
+
+Data science for the digital future
+
+\begin{itemize}
+\item
+  Ximena Rios Cotazo
+\item
+  Ramon Manuel Sandoval
+\end{itemize}
+
+    \hypertarget{e-commerce}{%
+\subsection{E-Commerce}\label{e-commerce}}
+
+El comercio electrónico se define como la actividad de compra o venta de
+bienes a través de medios electrónicos en línea o en la red mundial. La
+llegada de Internet permitió un crecimiento sin precedentes de los
+canales de comunicación en todo el mundo. Como resultado, surgieron
+industrias y se desarrollaron mercados para compras en línea para
+satisfacer la demanda de productos que no estaban disponibles en el
+país.
+
+El comercio electrónico ha dado lugar a un cambio en las estrategias de
+marketing y publicidad, lo que permite a las empresas llegar a los
+usuarios a través de múltiples canales (es decir, aplicaciones móviles)
+y expandir su alcance con un esfuerzo mínimo. En consecuencia, esto
+también ha generado cantidades sustanciales de datos del consumidor, que
+a través de un análisis matemático cuidadoso ofrece una capacidad
+poderosa pero perspicaz para reducir los comportamientos de gasto del
+consumidor, que a su vez impulsa sus ventas.
+
+Además, la publicidad programática adaptada específicamente y la
+extracción de datos del consumidor ha provocado una nueva ola de
+empresas e industrias. El crecimiento exponencial de los datos generados
+a través de la ``experiencia de compra en línea'' permite a las empresas
+aprender y extraer información fundamental de las transacciones para
+desarrollar una visión de los segmentos de clientes, los sesgos, los
+precios y los hábitos de gasto.
+
+    \hypertarget{planteamiento-del-problema}{%
+\subsection{Planteamiento del
+problema}\label{planteamiento-del-problema}}
+
+¿Qué aspectos del comportamiento en línea de los consumidores son útiles
+para que las empresas comprendan mejor a sus clientes y predigan las
+tendencias del consumidor, los hábitos de gasto y las variables
+relacionadas con las compras?
+
+    \hypertarget{objetivos}{%
+\subsection{Objetivos}\label{objetivos}}
+
+\begin{itemize}
+\tightlist
+\item
+  Comprensión y limpieza de datos
+\item
+  Análisis y modelado
+\item
+  Modelos de predicción
+\item
+  Visualizacion de la información
+\end{itemize}
+
+    \hypertarget{requerimientos}{%
+\subsection{Requerimientos}\label{requerimientos}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{os}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{numpy}                 \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas}                \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot}     \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn}               \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{import} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics}       \PY{k}{as} \PY{n+nn}{Metrics}
+\end{Verbatim}
+
+
+    \hypertarget{dataset-conjunto-de-datos-puxfablicos-brasileuxf1os-de-comercio-electruxf3nico-de-olist}{%
+\section{DATASET: Conjunto de datos públicos brasileños de comercio
+electrónico de
+Olist}\label{dataset-conjunto-de-datos-puxfablicos-brasileuxf1os-de-comercio-electruxf3nico-de-olist}}
+
+Este es un conjunto de datos públicos de comercio electrónico brasileño
+de pedidos realizados en Olist Store, tomado de
+\href{https://www.kaggle.com/olistbr/brazilian-ecommerce?select=olist_geolocation_dataset.csv}{Kaggle}.
+El conjunto de datos tiene información de 100k pedidos realizados entre
+el 2016 y 2018 en múltiples mercados en Brasil. Sus características
+permiten ver un pedido desde múltiples dimensiones: desde el estado del
+pedido, el precio, el pago y el desempeño del flete hasta la ubicación
+del cliente, los atributos del producto y finalmente las reseñas
+escritas por los clientes. También publicamos un conjunto de datos de
+geolocalización que relaciona los códigos postales brasileños con las
+coordenadas lat / lng.
+
+\textbf{Contexto} Este conjunto de datos fue proporcionado generosamente
+por Olist, la tienda por departamentos más grande de los mercados
+brasileños. Olist conecta pequeñas empresas de todo Brasil con canales
+sin problemas y con un solo contrato. Estos comerciantes pueden vender
+sus productos a través de Olist Store y enviarlos directamente a los
+clientes mediante los socios logísticos de Olist.
+
+Después de que un cliente compra el producto en Olist Store, un vendedor
+recibe una notificación para cumplir con ese pedido. Una vez que el
+cliente recibe el producto, o se vence la fecha estimada de entrega, el
+cliente recibe una encuesta de satisfacción por correo electrónico donde
+puede dar una nota por la experiencia de compra y escribir algunos
+comentarios.
+
+\textbf{Atención} Un pedido puede tener varios artículos. Cada artículo
+puede ser realizado por un vendedor distinto. Todo el texto que
+identifica tiendas y socios fue reemplazado por los nombres de las
+grandes casas.
+
+\textbf{Esquema de datos} Para una mejor comprensión y organización, los
+conjuntos de datos proporcionados se distribuyen en nueve conjuntos
+primarios, cuatro de los cuales se cargan a continuacion:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{ruta}\PY{o}{=}\PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/data/}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{customer} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{ruta}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{olist\PYZus{}customers\PYZus{}dataset.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{delimiter}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+        \PY{n}{order\PYZus{}items}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{ruta}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{olist\PYZus{}order\PYZus{}items\PYZus{}dataset.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{delimiter}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+        \PY{n}{orders}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{ruta}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{olist\PYZus{}orders\PYZus{}dataset.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{delimiter}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+        \PY{n}{products}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{ruta}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{olist\PYZus{}products\PYZus{}dataset.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{delimiter}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+        \PY{n}{order\PYZus{}payments}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{ruta}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{olist\PYZus{}order\PYZus{}payments\PYZus{}dataset.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{delimiter}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{olist_customers_dataset.-100000-filas-y-5-columnas.}{%
+\subsection{olist\_customers\_dataset. \textasciitilde{} 100,000 filas y
+5 columnas.}\label{olist_customers_dataset.-100000-filas-y-5-columnas.}}
+
+Las columnas presentadas en este archivo son:
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+\begin{minipage}[b]{0.22\columnwidth}\raggedright
+CAMPO\strut
+\end{minipage} & \begin{minipage}[b]{0.22\columnwidth}\raggedright
+TIPO\strut
+\end{minipage} & \begin{minipage}[b]{0.22\columnwidth}\raggedright
+DESCRIPCION\strut
+\end{minipage} & \begin{minipage}[b]{0.22\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.22\columnwidth}\raggedright
+customer\_id\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+Claves para el conjunto de datos de pedidos. Cada orden tiene un
+Identificación del cliente.\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.22\columnwidth}\raggedright
+customer\_unique\_id\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+Identificador único de un cliente.\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.22\columnwidth}\raggedright
+customer\_zip\_code\_prefix\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+INT\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+Primeros cinco dígitos del código postal del cliente\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.22\columnwidth}\raggedright
+customer\_city\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+Nombre de la ciudad del cliente.\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.22\columnwidth}\raggedright
+customer\_state\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+Estado del cliente.\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{olist_order_items_dataset.-100000-filas-y-7-columnas.}{%
+\subsection{olist\_order\_items\_dataset. \textasciitilde{} 100,000
+filas y 7
+columnas.}\label{olist_order_items_dataset.-100000-filas-y-7-columnas.}}
+
+Las columnas presentadas en este archivo son:
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+\begin{minipage}[b]{0.22\columnwidth}\raggedright
+CAMPO\strut
+\end{minipage} & \begin{minipage}[b]{0.22\columnwidth}\raggedright
+TIPO\strut
+\end{minipage} & \begin{minipage}[b]{0.22\columnwidth}\raggedright
+DESCRIPCION\strut
+\end{minipage} & \begin{minipage}[b]{0.22\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.22\columnwidth}\raggedright
+order\_id\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+Identificador único del pedido.\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.22\columnwidth}\raggedright
+order\_item\_id\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+INT\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+Número secuencial que identifica el número de artículosincluido en el
+mismo pedido.\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.22\columnwidth}\raggedright
+product\_id\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+Identificador único del producto.\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.22\columnwidth}\raggedright
+seller\_id\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+Identificador único del vendedor.\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.22\columnwidth}\raggedright
+shipping\_limit\_date\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+Muestra la fecha límite de envío del vendedor para manejar el encargar
+al socio logístico.\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.22\columnwidth}\raggedright
+precio\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+FLOAT\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+Precio del artículo (BRL).\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.22\columnwidth}\raggedright
+freight\_value\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+FLOAT\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+Artículo valor de flete artículo (si una orden tiene más de una artículo
+el valor del flete se divide entre artículos)\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{olist_orders_dataset.-100999-filas-y-8-columnas}{%
+\subsection{olist\_orders\_dataset. \textasciitilde{} 100,999 filas y 8
+columnas}\label{olist_orders_dataset.-100999-filas-y-8-columnas}}
+
+Las columnas presentadas en este archivo son:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+\begin{minipage}[b]{0.30\columnwidth}\raggedright
+CAMPO\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
+TIPO\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
+DESCRIPCION\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+order\_id\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Identificador único del pedido.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+customer\_id\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Clave para el conjunto de datos del cliente. Cada orden tiene un
+customer\_id único.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+order\_status\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Referencia al estado del pedido (entregado,enviado, etc.).\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+order\_purchase\_timestamp\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Muestra la marca de tiempo de la compra.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+order\_approved\_at\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Muestra la marca de tiempo de aprobación del pago.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+order\_delivered\_carrier\_date\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Muestra la marca de tiempo de publicación del pedido. Cuando fue
+entregado al socio logístico.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+order\_delivered\_customer\_date\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Muestra la fecha de entrega real del pedido al cliente.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+order\_estimated\_delivery\_date\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Muestra la fecha de entrega estimada que fue informado al cliente en la
+compra momento\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{olist_products_dataset.-32.000-filas-y-9-columnas}{%
+\subsection{olist\_products\_dataset. \textasciitilde{} 32.000 filas y 9
+columnas}\label{olist_products_dataset.-32.000-filas-y-9-columnas}}
+
+Las columnas presentadas en este archivo son:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+\begin{minipage}[b]{0.30\columnwidth}\raggedright
+CAMPO\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
+TIPO\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
+DESCRIPCION\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+product\_id\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Identificador único de producto\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+product\_category\_name\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Categoría raíz del producto, en portugués.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+product\_name\_length\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+FLOAT\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Número de caracteres extraídos del producto nombre.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+product\_description\_length\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+FLOAT\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Número de caracteres extraídos del producto descripción.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+product\_photos\_qty\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+FLOAT\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Número de fotos publicadas del producto\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+product\_weight\_g\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+FLOAT\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Peso del producto medido en gramos.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+product\_length\_cm\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+FLOAT\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Longitud del producto medida en centímetros.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+product\_height\_cm\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+FLOAT\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Altura del producto medida en centímetros.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+product\_width\_cm\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+FLOAT\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Ancho del producto medido en centímetros.\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{tendencias-por-ciudades-producto-ximena}{%
+\section{Tendencias por ciudades (producto)
+XIMENA}\label{tendencias-por-ciudades-producto-ximena}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{c+c1}{\PYZsh{} order\PYZus{}id \PYZhy{}\PYZgt{}Identificador único del pedido. }
+          \PY{c+c1}{\PYZsh{} customer\PYZus{}id\PYZhy{}\PYZgt{} Cada orden tiene un Id del cliente.}
+          \PY{c+c1}{\PYZsh{} customer\PYZus{}unique\PYZus{}id\PYZhy{}\PYZgt{}Identificador único de un cliente.}
+          \PY{n}{df1}\PY{o}{=}\PY{n}{orders}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{order\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customer\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]} 
+          \PY{n}{df2}\PY{o}{=}\PY{n}{customer}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customer\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customer\PYZus{}unique\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customer\PYZus{}city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customer\PYZus{}state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]} 
+          \PY{n}{df}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df1}\PY{p}{,} \PY{n}{df2}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{left\PYZus{}on}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{customer\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{right\PYZus{}on}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{customer\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}105}]:} \PY{c+c1}{\PYZsh{}order\PYZus{}id \PYZhy{}\PYZgt{} dentificador único del pedido.}
+          \PY{c+c1}{\PYZsh{}order\PYZus{}item\PYZus{}id \PYZhy{}\PYZgt{} Número secuencial que identifica el número de artículosincluido en el mismo pedido.}
+          \PY{c+c1}{\PYZsh{}product\PYZus{}id \PYZhy{}\PYZgt{} Identificador único del producto.}
+          \PY{n}{df3}\PY{o}{=}\PY{n}{order\PYZus{}items}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{order\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{order\PYZus{}item\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]} 
+          \PY{n}{df}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{df3}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{left\PYZus{}on}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{order\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{right\PYZus{}on}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{order\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}106}]:} \PY{c+c1}{\PYZsh{}product\PYZus{}id \PYZhy{}\PYZgt{} Identificador único de producto}
+          \PY{c+c1}{\PYZsh{}product\PYZus{}category\PYZus{}name \PYZhy{}\PYZgt{} Categoría raíz del producto, en portugués}
+          \PY{n}{df4}\PY{o}{=}\PY{n}{products}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product\PYZus{}category\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]} 
+          \PY{n}{df}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{df4}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{left\PYZus{}on}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{product\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{right\PYZus{}on}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{product\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}107}]:} \PY{n}{region} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Norte}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sur}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sudeste}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nordeste}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CentroOeste}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{regiones}\PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Norte}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nordeste}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Norte}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Norte}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nordeste}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nordeste}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DF}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CentroOeste}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ES}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sudeste}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CentroOeste}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nordeste}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sudeste}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CentroOeste}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CentroOeste}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Norte}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nordeste}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nordeste}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nordeste}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sur}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RJ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sudeste}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nordeste}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Norte}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Norte}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sur}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sur}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nordeste}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sudeste}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Norte}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{regions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customer\PYZus{}state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{estados}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{regions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{regions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{regiones}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n+nb}{list}\PY{p}{(}\PY{n}{regiones}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{n}{estados}\PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Acre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alagoas}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amazonas}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amapá}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bahía}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ceará}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DF}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distrito Federal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ES}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Espírito Santo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Goiás}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Maranhão}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Minas Gerais}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mato Grosso del Sur}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mato Grosso}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pará}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Paraíba}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pernambuco}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Piauí}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Paraná}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RJ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Río de Janeiro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Río Grande del Norte}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rondonia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Roraima}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Río Grande del Sur}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Santa Catarina}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sergipe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{São Paulo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tocantins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name\PYZus{}state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customer\PYZus{}state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{estados}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{name\PYZus{}state}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{name\PYZus{}state}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{estados}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n+nb}{list}\PY{p}{(}\PY{n}{estados}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}180}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{18}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+          \PY{n}{aux}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name\PYZus{}state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number de transaciones}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{27}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{=}\PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name\PYZus{}state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number de transaciones}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{aux}\PY{p}{)}\PY{p}{;}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}\PY{p}{;}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Compras Online x Estado}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Los estados que mas compras online realizan son Sao Pablo y Rio de
+Janeiro, las dos principales estados del pais.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}231}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{18}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+          \PY{n}{aux}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product\PYZus{}category\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number de transaciones}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number de transaciones}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{74}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+          \PY{n}{listaP}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n}{aux}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{product\PYZus{}category\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{=}\PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product\PYZus{}category\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number de transaciones}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{aux}\PY{p}{)}\PY{p}{;}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}\PY{p}{;}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Productos mas vendidos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}232}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+          \PY{n}{aux}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customer\PYZus{}city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+          \PY{n}{listaC}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n}{aux}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{customer\PYZus{}city}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{=}\PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customer\PYZus{}city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{aux}\PY{p}{)}\PY{p}{;}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}\PY{p}{;}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{50 Ciudades con el mayor numero de ventas }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{De }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{customer\PYZus{}city}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ ciudades se grafican las 50 que registran mayor numero de ventas}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+De  4119  ciudades se grafican las 50 que registran mayor numero de ventas
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}244}]:} \PY{n}{listaC}\PY{o}{=}\PY{n}{listaC}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+          \PY{n}{aux}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{customer\PYZus{}city}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{listaC}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{product\PYZus{}category\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{customer\PYZus{}city}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{aux}\PY{o}{=}\PY{n}{aux}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{product\PYZus{}category\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{customer\PYZus{}city}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number de transaciones}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+          \PY{n}{aux}\PY{o}{=}\PY{n}{aux}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number de transaciones}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}aux=aux[:50]}
+          \PY{c+c1}{\PYZsh{}ax=sns.lineplot(x=\PYZsq{}product\PYZus{}category\PYZus{}name\PYZsq{}, y=\PYZsq{}Number de transaciones\PYZsq{}, hue=\PYZsq{}customer\PYZus{}city\PYZsq{}, data=aux)}
+          \PY{n}{ax}\PY{o}{=}\PY{n}{sns}\PY{o}{.}\PY{n}{scatterplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product\PYZus{}category\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number de transaciones}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customer\PYZus{}city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{aux}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}ax.set\PYZus{}xticklabels(ax.get\PYZus{}xticklabels(), rotation=90)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{productos vendidos por ciudad }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}248}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+          \PY{n}{aux}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{product\PYZus{}category\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{regions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{aux}\PY{o}{=}\PY{n}{aux}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{product\PYZus{}category\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{regions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number de transaciones}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+          \PY{n}{aux}\PY{o}{=}\PY{n}{aux}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number de transaciones}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}aux=aux[:50]}
+          \PY{c+c1}{\PYZsh{}ax=sns.lineplot(x=\PYZsq{}product\PYZus{}category\PYZus{}name\PYZsq{}, y=\PYZsq{}Number de transaciones\PYZsq{}, hue=\PYZsq{}customer\PYZus{}city\PYZsq{}, data=aux)}
+          \PY{n}{ax}\PY{o}{=}\PY{n}{sns}\PY{o}{.}\PY{n}{scatterplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product\PYZus{}category\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number de transaciones}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{regions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{aux}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}ax.set\PYZus{}xticklabels(ax.get\PYZus{}xticklabels(), rotation=90)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{productos vendidos por region }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{highest-income-per-category-alejandro}{%
+\section{Highest Income per Category
+Alejandro}\label{highest-income-per-category-alejandro}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{a}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{order\PYZus{}items}\PY{p}{,} \PY{n}{orders}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{order\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{merged\PYZus{}df}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{products}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{merged\PYZus{}df}\PY{o}{.}\PY{n}{order\PYZus{}status}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} delivered      110197
+        shipped          1185
+        canceled          542
+        invoiced          359
+        processing        357
+        unavailable         7
+        approved            3
+        Name: order\_status, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{top50categories\PYZus{}df}\PY{o}{=}\PY{n}{merged\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{merged\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product\PYZus{}category\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{50}\PY{p}{]}
+         \PY{n}{top50categories\PYZus{}df}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} product\_category\_name
+         beleza\_saude                                      1258681.34
+         relogios\_presentes                                1205005.68
+         cama\_mesa\_banho                                   1036988.68
+         esporte\_lazer                                      988048.97
+         informatica\_acessorios                             911954.32
+         moveis\_decoracao                                   729762.49
+         cool\_stuff                                         635290.85
+         utilidades\_domesticas                              632248.66
+         automotivo                                         592720.11
+         ferramentas\_jardim                                 485256.46
+         brinquedos                                         483946.60
+         bebes                                              411764.89
+         perfumaria                                         399124.87
+         telefonia                                          323667.53
+         moveis\_escritorio                                  273960.70
+         papelaria                                          230943.23
+         pcs                                                222963.13
+         pet\_shop                                           214315.41
+         instrumentos\_musicais                              191498.88
+         eletroportateis                                    190648.58
+         eletronicos                                        160246.74
+         consoles\_games                                     157465.22
+         fashion\_bolsas\_e\_acessorios                        152823.54
+         construcao\_ferramentas\_construcao                  144677.59
+         malas\_acessorios                                   140429.98
+         eletrodomesticos\_2                                 113317.74
+         casa\_construcao                                     83088.12
+         eletrodomesticos                                    80171.53
+         agro\_industria\_e\_comercio                           72530.47
+         moveis\_sala                                         68916.56
+         telefonia\_fixa                                      59583.00
+         casa\_conforto                                       58572.04
+         climatizacao                                        55024.96
+         audio                                               50688.50
+         portateis\_casa\_forno\_e\_cafe                         47445.71
+         livros\_interesse\_geral                              46856.88
+         moveis\_cozinha\_area\_de\_servico\_jantar\_e\_jardim      46328.37
+         construcao\_ferramentas\_iluminacao                   41080.00
+         construcao\_ferramentas\_seguranca                    40544.52
+         industria\_comercio\_e\_negocios                       39669.61
+         alimentos                                           29393.41
+         market\_place                                        28378.47
+         construcao\_ferramentas\_jardim                       25715.89
+         artes                                               24202.64
+         fashion\_calcados                                    23562.77
+         bebidas                                             22428.70
+         sinalizacao\_e\_seguranca                             21509.23
+         moveis\_quarto                                       20028.78
+         livros\_tecnicos                                     19096.06
+         construcao\_ferramentas\_ferramentas                  15903.95
+         Name: price, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{fig}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{18}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{top50categories\PYZus{}df}\PY{o}{.}\PY{n}{values}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{n}{top50categories\PYZus{}df}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Highest Income Products}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Product Category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} Text(0, 0.5, 'Product Category')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    It's interesting looking at this chart that the highest incomes for the
+platform come from the category health, beauty.
+
+    \hypertarget{late-deliveries-alejandro}{%
+\section{Late Deliveries Alejandro}\label{late-deliveries-alejandro}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{delivered\PYZus{}time} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{merged\PYZus{}df}\PY{o}{.}\PY{n}{order\PYZus{}delivered\PYZus{}customer\PYZus{}date}\PY{p}{)}
+         \PY{n}{estimated\PYZus{}time} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{merged\PYZus{}df}\PY{o}{.}\PY{n}{order\PYZus{}estimated\PYZus{}delivery\PYZus{}date}\PY{p}{)}
+         \PY{n}{merged\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{late\PYZus{}delivery}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{delivered\PYZus{}time} \PY{o}{\PYZhy{}} \PY{n}{estimated\PYZus{}time}
+         \PY{n}{merged\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{late\PYZus{}delivery}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{n}{merged\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{late\PYZus{}delivery}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{timedelta64}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{late\PYZus{}deliveries\PYZus{}df} \PY{o}{=} \PY{n}{merged\PYZus{}df}\PY{p}{[}\PY{n}{merged\PYZus{}df}\PY{o}{.}\PY{n}{late\PYZus{}delivery} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{late\PYZus{}deliveries\PYZus{}df}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{product\PYZus{}category\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{order\PYZus{}delivered\PYZus{}customer\PYZus{}date}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{order\PYZus{}estimated\PYZus{}delivery\PYZus{}date}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{late\PYZus{}delivery}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:}            product\_category\_name order\_delivered\_customer\_date  \textbackslash{}
+         5                     cool\_stuff           2017-08-31 20:19:52   
+         16            ferramentas\_jardim           2018-04-02 22:32:10   
+         29         utilidades\_domesticas           2017-07-10 11:46:40   
+         36                  beleza\_saude           2018-03-29 18:17:31   
+         68                  beleza\_saude           2018-05-23 17:51:15   
+         69                  beleza\_saude           2018-05-23 17:51:15   
+         71                  beleza\_saude           2018-02-24 16:26:53   
+         97   fashion\_bolsas\_e\_acessorios           2018-08-07 13:56:52   
+         120              cama\_mesa\_banho           2017-09-04 13:34:13   
+         121              cama\_mesa\_banho           2018-03-29 23:42:46   
+         
+             order\_estimated\_delivery\_date  late\_delivery  
+         5             2017-08-24 00:00:00       7.847130  
+         16            2018-03-23 00:00:00      10.939005  
+         29            2017-07-10 00:00:00       0.490741  
+         36            2018-03-29 00:00:00       0.762164  
+         68            2018-05-16 00:00:00       7.743924  
+         69            2018-05-16 00:00:00       7.743924  
+         71            2018-02-21 00:00:00       3.685336  
+         97            2018-08-07 00:00:00       0.581157  
+         120           2017-08-31 00:00:00       4.565428  
+         121           2018-03-16 00:00:00      13.988032  
+\end{Verbatim}
+            
+    \hypertarget{difference-between-order-approved-and-delivered-alejandro}{%
+\section{Difference Between Order Approved and Delivered
+Alejandro}\label{difference-between-order-approved-and-delivered-alejandro}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{delivered\PYZus{}time} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{merged\PYZus{}df}\PY{o}{.}\PY{n}{order\PYZus{}delivered\PYZus{}customer\PYZus{}date}\PY{p}{)}
+         \PY{n}{approved\PYZus{}time} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{merged\PYZus{}df}\PY{o}{.}\PY{n}{order\PYZus{}approved\PYZus{}at}\PY{p}{)}
+         \PY{n}{merged\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{delivery\PYZus{}time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{delivered\PYZus{}time} \PY{o}{\PYZhy{}} \PY{n}{approved\PYZus{}time}
+         \PY{n}{merged\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{delivery\PYZus{}time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{merged\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{delivery\PYZus{}time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{timedelta64}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{delivery\PYZus{}time\PYZus{}df} \PY{o}{=} \PY{n}{merged\PYZus{}df}\PY{p}{[}\PY{n}{merged\PYZus{}df}\PY{o}{.}\PY{n}{delivery\PYZus{}time} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{delivery\PYZus{}time\PYZus{}df}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{product\PYZus{}category\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{order\PYZus{}delivered\PYZus{}customer\PYZus{}date}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{order\PYZus{}estimated\PYZus{}delivery\PYZus{}date}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{late\PYZus{}delivery}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:}   product\_category\_name order\_delivered\_customer\_date  \textbackslash{}
+         0            cool\_stuff           2017-09-20 23:43:48   
+         1            cool\_stuff           2017-07-13 20:39:29   
+         2            cool\_stuff           2018-06-04 18:34:26   
+         3            cool\_stuff           2017-08-09 21:26:33   
+         4            cool\_stuff           2017-08-24 20:04:21   
+         5            cool\_stuff           2017-08-31 20:19:52   
+         6            cool\_stuff           2018-03-28 21:57:44   
+         7            cool\_stuff           2017-08-14 18:13:03   
+         8            cool\_stuff           2017-06-26 13:52:03   
+         9              pet\_shop           2017-05-12 16:04:24   
+         
+           order\_estimated\_delivery\_date  late\_delivery  
+         0           2017-09-29 00:00:00      -8.011250  
+         1           2017-07-26 00:00:00     -12.139248  
+         2           2018-06-07 00:00:00      -2.226088  
+         3           2017-08-25 00:00:00     -15.106563  
+         4           2017-09-01 00:00:00      -7.163646  
+         5           2017-08-24 00:00:00       7.847130  
+         6           2018-04-12 00:00:00     -14.084907  
+         7           2017-09-06 00:00:00     -22.240938  
+         8           2017-07-06 00:00:00      -9.422187  
+         9           2017-05-15 00:00:00      -2.330278  
+\end{Verbatim}
+            
+    \hypertarget{tendencia-de-ventas-por-hora-o-dia-de-la-semana-luisa}{%
+\section{Tendencia de ventas por hora o dia de la semana
+LUISA}\label{tendencia-de-ventas-por-hora-o-dia-de-la-semana-luisa}}
+
+    \hypertarget{tendencias-de-medio-de-pago}{%
+\section{Tendencias de Medio de
+pago}\label{tendencias-de-medio-de-pago}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{efective\PYZus{}orders}\PY{o}{=}\PY{n}{orders}\PY{p}{[}\PY{p}{(}\PY{n}{orders}\PY{o}{.}\PY{n}{order\PYZus{}status}\PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{canceled}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{orders}\PY{o}{.}\PY{n}{order\PYZus{}status}\PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unavailable}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{}payment\PYZus{}orders= pd.concat([order\PYZus{}payments,efective\PYZus{}orders], axis=1)}
+         \PY{n}{payment\PYZus{}orders}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{order\PYZus{}payments}\PY{p}{,} \PY{n}{efective\PYZus{}orders}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{k+kn}{import} \PY{n+nn}{datetime}
+         \PY{n}{timesMonth}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{timesYear}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{weekday}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{hour}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{payment\PYZus{}orders}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{order\PYZus{}purchase\PYZus{}timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+             \PY{n}{fecha}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+             \PY{n}{timesMonth}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{fecha}\PY{o}{.}\PY{n}{month}\PY{p}{)}
+             \PY{n}{timesYear}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{fecha}\PY{o}{.}\PY{n}{year}\PY{p}{)}
+             \PY{n}{weekday}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{fecha}\PY{o}{.}\PY{n}{dayofweek}\PY{p}{)}
+             \PY{n}{hour}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{fecha}\PY{o}{.}\PY{n}{hour}\PY{p}{)}
+         \PY{n}{payment\PYZus{}orders}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{timesMonth}
+         \PY{n}{payment\PYZus{}orders}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{timesYear}
+         \PY{n}{payment\PYZus{}orders}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WeekDay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{weekday}
+         \PY{n}{payment\PYZus{}orders}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{hour}
+         \PY{n}{payment\PYZus{}orders}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} pd.datetime.now().year*100+pd.datetime.now().month}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:}                                order\_id  payment\_sequential payment\_type  \textbackslash{}
+         23063  8d1d09cecb392f024da77ada654625c5                   1  credit\_card   
+         71097  4a82a56f850507b43e8aceaed75a091b                   1       boleto   
+         11829  9941a0a6225e94809b6d9955bb16b594                   1  credit\_card   
+         36143  a38aeb63e6290170677c4cf2ab4c0f7f                   1  credit\_card   
+         80436  a9ca52be3b3e9d4dc6b7d66e2712b35f                   1  credit\_card   
+         
+                payment\_installments  payment\_value                       customer\_id  \textbackslash{}
+         23063                     1          76.94  4608ffc5f70a8c67bf129d6770948fb3   
+         71097                     1         115.24  ce592ad7925e24b891730859400babe3   
+         11829                     1          51.05  7ea85f585581eb47056e7d88bc9dd900   
+         36143                     6         163.79  62e1860ef3884fd9e103e75783dca1c0   
+         80436                     1          20.29  e6f9f570718a77ca7fa6e26ce9ec12ed   
+         
+               order\_status order\_purchase\_timestamp    order\_approved\_at  \textbackslash{}
+         23063    delivered      2017-10-23 17:11:15  2017-10-23 17:35:33   
+         71097    delivered      2018-03-26 11:29:37  2018-03-26 13:08:34   
+         11829    delivered      2018-03-26 10:35:15  2018-03-26 10:47:54   
+         36143    delivered      2018-03-26 10:14:31  2018-03-26 10:31:11   
+         80436    delivered      2018-03-26 09:19:53  2018-03-26 09:35:34   
+         
+               order\_delivered\_carrier\_date order\_delivered\_customer\_date  \textbackslash{}
+         23063          2017-10-24 16:58:57           2017-10-27 20:41:50   
+         71097          2018-03-27 19:13:06           2018-04-13 01:22:37   
+         11829          2018-03-26 23:08:47           2018-03-27 17:12:59   
+         36143          2018-03-26 22:12:20           2018-04-02 18:34:32   
+         80436          2018-03-27 20:12:35           2018-03-29 13:37:52   
+         
+               order\_estimated\_delivery\_date  Month  Year  WeekDay  Hour  
+         23063           2017-11-09 00:00:00     10  2017        0    17  
+         71097           2018-04-23 00:00:00      3  2018        0    11  
+         11829           2018-04-09 00:00:00      3  2018        0    10  
+         36143           2018-04-17 00:00:00      3  2018        0    10  
+         80436           2018-04-06 00:00:00      3  2018        0     9  
+\end{Verbatim}
+            
+    \hypertarget{most-people-in-brazil-e-commerce-use-credit-card-to-pay-their-buys}{%
+\paragraph{Most people in Brazil E Commerce use Credit Card to pay their
+buys}\label{most-people-in-brazil-e-commerce-use-credit-card-to-pay-their-buys}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{payment\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{payment\PYZus{}orders}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_44_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{sales-of-best-selling-products-show-the-same-behavior-as-total-sales}{%
+\paragraph{Sales of best-selling products, show the same behavior as
+total
+sales}\label{sales-of-best-selling-products-show-the-same-behavior-as-total-sales}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{}Sales with more seller products(mor than 100 units per product)}
+         \PY{n}{dfrs} \PY{o}{=} \PY{n}{order\PYZus{}items}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+         \PY{n}{dfrs}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{order\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{dfrs1} \PY{o}{=} \PY{n}{dfrs}\PY{p}{[}\PY{p}{(}\PY{n}{dfrs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{order\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{]}
+         \PY{n}{ListProducts}\PY{o}{=}\PY{n}{dfrs1}\PY{o}{.}\PY{n}{index}
+         \PY{n}{ListOrders}\PY{o}{=}\PY{n}{order\PYZus{}items}\PY{p}{[}\PY{p}{(}\PY{n}{order\PYZus{}items}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{ListProducts}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{order\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+         \PY{n}{pop}\PY{o}{=}\PY{n}{payment\PYZus{}orders}\PY{p}{[}\PY{p}{(}\PY{n}{payment\PYZus{}orders}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{order\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{ListOrders}\PY{p}{)}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{payment\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{pop}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_46_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{there-is-no-relevant-information-in-a-general-line-of-time}{%
+\subsection{There is no relevant information in a general line of
+time}\label{there-is-no-relevant-information-in-a-general-line-of-time}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} Comportamiento en el tiempo por Tipo de Pago}
+         \PY{n}{payment\PYZus{}orders}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{order\PYZus{}purchase\PYZus{}timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{listPaymentT} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{credit\PYZus{}card}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{boleto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{voucher}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{debit\PYZus{}card}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{color} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{var} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{listPaymentT}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{}print(var)}
+             \PY{n}{temp} \PY{o}{=} \PY{n}{payment\PYZus{}orders}\PY{p}{[}\PY{p}{(}\PY{n}{payment\PYZus{}orders}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{payment\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{var}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{order\PYZus{}purchase\PYZus{}timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{payment\PYZus{}value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+             \PY{n}{temp}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{line}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{order\PYZus{}purchase\PYZus{}timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{payment\PYZus{}value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{color}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{n}{var}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{tittle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Payment Type }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{var}
+             \PY{c+c1}{\PYZsh{}plt.legend()}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{in-monthly-bases-credit-card-payment-has-shown-changes-in-september-payments-with-boleto-show-some-peak-in-may-july-and-novemberdebit-card-is-more-used-in-jun-to-august}{%
+\subsection{In Monthly bases Credit card payment has shown changes in
+September, payments with boleto show some peak in may, july and
+november,debit-card is more used in Jun to
+august}\label{in-monthly-bases-credit-card-payment-has-shown-changes-in-september-payments-with-boleto-show-some-peak-in-may-july-and-novemberdebit-card-is-more-used-in-jun-to-august}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{}Behavior Monthly by Payment Type}
+         
+         \PY{n}{payment\PYZus{}orders}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{listPaymentT} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{credit\PYZus{}card}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{boleto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{voucher}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{debit\PYZus{}card}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{color} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{var} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{listPaymentT}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}print(var)}
+             \PY{n}{temp} \PY{o}{=} \PY{n}{payment\PYZus{}orders}\PY{p}{[}\PY{p}{(}\PY{n}{payment\PYZus{}orders}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{payment\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{var}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{payment\PYZus{}value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+             \PY{c+c1}{\PYZsh{}plt.subplot(2,2,i+1)}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{payment\PYZus{}value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{temp} \PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{n}{color}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}plt.tittle = \PYZsq{}Payment Type \PYZsq{} + var}
+             \PY{c+c1}{\PYZsh{}plt.legend()}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{thursday-and-saturday-shows-peaks-of-buyers-in-credit-card-boletos-and-bouchers-are-some-disperse-along-week.}{%
+\subsection{Thursday and Saturday shows peaks of buyers in credit card,
+boletos and bouchers are some disperse along
+week.}\label{thursday-and-saturday-shows-peaks-of-buyers-in-credit-card-boletos-and-bouchers-are-some-disperse-along-week.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{payment\PYZus{}orders}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WeekDay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{listPaymentT} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{credit\PYZus{}card}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{boleto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{voucher}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{debit\PYZus{}card}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{color} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{var} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{listPaymentT}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{var}\PY{p}{)}
+             \PY{n}{temp} \PY{o}{=} \PY{n}{payment\PYZus{}orders}\PY{p}{[}\PY{p}{(}\PY{n}{payment\PYZus{}orders}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{payment\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{var}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WeekDay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{payment\PYZus{}value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WeekDay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{payment\PYZus{}value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{temp} \PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{n}{color}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+credit\_card
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+boleto
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+voucher
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+debit\_card
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{payment\PYZus{}orders}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{listPaymentT} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{credit\PYZus{}card}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{boleto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{voucher}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{debit\PYZus{}card}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{color} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{var} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{listPaymentT}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{var}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+             \PY{n}{temp} \PY{o}{=} \PY{n}{payment\PYZus{}orders}\PY{p}{[}\PY{p}{(}\PY{n}{payment\PYZus{}orders}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{payment\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{var}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{payment\PYZus{}value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{payment\PYZus{}value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{temp} \PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{n}{color}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+credit\_card
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_53_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+boleto
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_53_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+voucher
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_53_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+debit\_card
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_53_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{tendencias-por-cliente-relacion-entre-producto-tipo-producto-hector}{%
+\section{Tendencias por cliente (relacion entre producto, tipo producto)
+HECTOR}\label{tendencias-por-cliente-relacion-entre-producto-tipo-producto-hector}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{c+c1}{\PYZsh{}customer = pd.read\PYZus{}csv(\PYZsq{}Data/olist\PYZus{}customers\PYZus{}dataset.csv\PYZsq{}, delimiter=\PYZsq{},\PYZsq{}) }
+          \PY{c+c1}{\PYZsh{}geolocation=pd.read\PYZus{}csv(\PYZsq{}Data/olist\PYZus{}geolocation\PYZus{}dataset.csv\PYZsq{}, delimiter=\PYZsq{},\PYZsq{}) }
+          \PY{c+c1}{\PYZsh{}order\PYZus{}items=pd.read\PYZus{}csv(\PYZsq{}Data/olist\PYZus{}order\PYZus{}items\PYZus{}dataset.csv\PYZsq{}, delimiter=\PYZsq{},\PYZsq{}) }
+          \PY{c+c1}{\PYZsh{}order\PYZus{}payments=pd.read\PYZus{}csv(\PYZsq{}Data/olist\PYZus{}order\PYZus{}payments\PYZus{}dataset.csv\PYZsq{}, delimiter=\PYZsq{},\PYZsq{}) }
+          \PY{c+c1}{\PYZsh{}order\PYZus{}reviews=pd.read\PYZus{}csv(\PYZsq{}Data/olist\PYZus{}order\PYZus{}reviews\PYZus{}dataset.csv\PYZsq{}, delimiter=\PYZsq{},\PYZsq{}) }
+          \PY{c+c1}{\PYZsh{}orders=pd.read\PYZus{}csv(\PYZsq{}Data/olist\PYZus{}orders\PYZus{}dataset.csv\PYZsq{}, delimiter=\PYZsq{},\PYZsq{}) }
+          \PY{c+c1}{\PYZsh{}products=pd.read\PYZus{}csv(\PYZsq{}Data/olist\PYZus{}products\PYZus{}dataset.csv\PYZsq{}, delimiter=\PYZsq{},\PYZsq{}) }
+          \PY{c+c1}{\PYZsh{}sellers=pd.read\PYZus{}csv(\PYZsq{}Data/olist\PYZus{}sellers\PYZus{}dataset.csv\PYZsq{}, delimiter=\PYZsq{},\PYZsq{}) }
+          \PY{c+c1}{\PYZsh{}category=pd.read\PYZus{}csv(\PYZsq{}Data/product\PYZus{}category\PYZus{}name\PYZus{}translation.csv\PYZsq{}, delimiter=\PYZsq{},\PYZsq{}) }
+\end{Verbatim}
+
+
+    \hypertarget{olist_sellers_dataset.-3000-filas-y-4-columnas.}{%
+\subsection{olist\_sellers\_dataset. \textasciitilde{} 3000 filas y 4
+columnas.}\label{olist_sellers_dataset.-3000-filas-y-4-columnas.}}
+
+Las columnas presentadas en este archivo son:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+\begin{minipage}[b]{0.30\columnwidth}\raggedright
+CAMPO\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
+TIPO\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
+DESCRIPCION\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+seller\_id\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Identificador único del vendedor\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+seller\_zip\_code\_prefix\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+INT\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Primeros 5 dígitos del código postal del vendedor\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+seller\_city\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Nombre de la ciudad del vendedor\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+seller\_state\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Estado del vendedor\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{olist_order-robust_dataset.-100000-filas-y-7-columnas.}{%
+\subsection{olist\_order robust\_dataset. \textasciitilde{} 100,000
+filas y 7
+columnas.}\label{olist_order-robust_dataset.-100000-filas-y-7-columnas.}}
+
+Las columnas presentadas en este archivo son:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+\begin{minipage}[b]{0.30\columnwidth}\raggedright
+CAMPO\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
+TIPO\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
+DESCRIPCION\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+review\_id\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Identificador único de reseña\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+order\_id\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Identificador de pedido único\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+review\_score\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+INT\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Nota que va de 1 a 5 dada por el cliente en un encuesta de
+satisfacción.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+review\_comment\_title\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Título del comentario de la reseña que dejó el cliente,en
+portugues.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+review\_comment\_message\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Mensaje de comentario de la reseña que dejó el cliente, en
+portugués.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+review\_creation\_date\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Muestra la fecha en la que se realizó la encuesta de
+satisfacción.enviado al cliente.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+review\_answer\_timestamp\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Muestra la marca de tiempo de la respuesta de la encuesta de
+satisfacción.\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{olist_order_payments_dataset.-100.000-filas-y-5-columnas.}{%
+\subsection{olist\_order\_payments\_dataset. \textasciitilde{} 100.000
+filas y 5
+columnas.}\label{olist_order_payments_dataset.-100.000-filas-y-5-columnas.}}
+
+Las columnas presentadas en este archivo son:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+\begin{minipage}[b]{0.30\columnwidth}\raggedright
+CAMPO\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
+TIPO\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
+DESCRIPCION\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+order\_id\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Identificador único de un pedido.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+Payment\_sequential\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+INT\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Los clientes pueden pagar con más de un pago método. Si lo hacen, se
+crea una secuencia para acomodar todos los pagos\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+payment\_type\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+STRING\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Método de pago elegido por el cliente.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+payment\_installments\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+INT\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Número de cuotas elegidas por el cliente.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+Payment\_value\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+FLOAT\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Valor de transacción (BRL).\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{olist_geolocation_dataset.-1-milluxf3n-de-filas-y-5-columnas.}{%
+\subsection{olist\_geolocation\_dataset. \textasciitilde{} 1 millón de
+filas y 5
+columnas.}\label{olist_geolocation_dataset.-1-milluxf3n-de-filas-y-5-columnas.}}
+
+Las columnas presentadas en este archivo son:
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+CAMPO & TIPO & DESCRIPCION &\tabularnewline
+\midrule
+\endhead
+geolocation\_zip\_code\_prefix & INT & Primeros cinco dígitos del código
+postal. &\tabularnewline
+geolocatation\_lat & FLOAT & Latitud asociada. &\tabularnewline
+geolocation\_lng & FLOAT & Longitud asociada. &\tabularnewline
+geolocation\_city & STRING & Nombre de la ciudad asociada.
+&\tabularnewline
+geolocation\_state & STRING & Nombre del estado asociado
+&\tabularnewline
+\bottomrule
+\end{longtable}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
